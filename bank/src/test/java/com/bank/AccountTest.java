@@ -20,4 +20,10 @@ public class AccountTest {
         assertEquals(100.0, account.getBalance(), 0.01);
     }
 
+    @Test
+    public void negative_deposit_does_not_change_balance() {
+        Account account = new Account("123456789");
+        account.deposit(-50.0);
+        assertEquals(0.0, account.getBalance(), 0.01);
+    }
 }
