@@ -27,6 +27,9 @@ public class Account {
     }
 
     public double withdraw(double amount) {
+        if (amount > balance) {
+            throw new IllegalArgumentException("Insufficient funds");
+        }
         balance -= amount;
         return amount;
     }
