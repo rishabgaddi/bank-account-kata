@@ -1,17 +1,19 @@
 package com.bank;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Account {
 
     private final String accountNumber;
+    private final List<TransactionHistory> transactionHistory;
 
     private double balance;
-    private List<TransactionHistory> transactionHistory;
 
     public Account(String accountNumber) {
         this.balance = 0.0;
-        this.transactionHistory = List.of();
+        this.transactionHistory = new ArrayList<>();
         this.accountNumber = accountNumber;
     }
 
@@ -32,6 +34,7 @@ public class Account {
             return;
         }
         balance += amount;
+        transactionHistory.add(new TransactionHistory(Operation.DEPOSIT, new Date(), amount, balance));
     }
 
     public double withdraw(double amount) {
