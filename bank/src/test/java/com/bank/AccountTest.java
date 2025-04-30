@@ -75,4 +75,14 @@ public class AccountTest {
         assertEquals(100.0, transaction.amount(), 0.01);
         assertEquals(100.0, transaction.balance(), 0.01);
     }
+
+    @Test
+    public void client_can_get_all_transaction_history() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        account.deposit(100.0);
+        account.withdraw(50.0);
+        assertEquals(2, account.getTransactionHistory().size());
+        assertEquals(Operation.DEPOSIT, account.getTransactionHistory().get(0).operation());
+        assertEquals(Operation.WITHDRAW, account.getTransactionHistory().get(1).operation());
+    }
 }
