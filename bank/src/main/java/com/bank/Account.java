@@ -42,6 +42,7 @@ public class Account {
             throw new IllegalArgumentException("Insufficient funds");
         }
         balance -= amount;
+        transactionHistory.add(new TransactionHistory(Operation.WITHDRAW, new Date(), amount, balance));
         return amount;
     }
 }
