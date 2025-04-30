@@ -1,13 +1,17 @@
 package com.bank;
 
+import java.util.List;
+
 public class Account {
 
     private final String accountNumber;
 
     private double balance;
+    private List<TransactionHistory> transactionHistory;
 
     public Account(String accountNumber) {
         this.balance = 0.0;
+        this.transactionHistory = List.of();
         this.accountNumber = accountNumber;
     }
 
@@ -17,6 +21,10 @@ public class Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public List<TransactionHistory> getTransactionHistory() {
+        return transactionHistory;
     }
 
     public void deposit(double amount) {

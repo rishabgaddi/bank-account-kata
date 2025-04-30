@@ -46,4 +46,10 @@ public class AccountTest {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> account.withdraw(200.0));
         assertEquals("Insufficient funds", illegalArgumentException.getMessage());
     }
+
+    @Test
+    public void transaction_history_is_empty_on_creation() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        assertEquals(0, account.getTransactionHistory().size());
+    }
 }
