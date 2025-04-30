@@ -26,4 +26,13 @@ public class AccountTest {
         account.deposit(-50.0);
         assertEquals(0.0, account.getBalance(), 0.01);
     }
+
+    @Test
+    public void client_can_withdraw() {
+        Account account = new Account("123456789");
+        account.deposit(200.0);
+        double amountWithdrawn = account.withdraw(100.0);
+        assertEquals(100.0, account.getBalance(), 0.01);
+        assertEquals(100.0, amountWithdrawn, 0.01);
+    }
 }
