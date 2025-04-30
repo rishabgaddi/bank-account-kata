@@ -46,4 +46,43 @@ public class AccountTest {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> account.withdraw(200.0));
         assertEquals("Insufficient funds", illegalArgumentException.getMessage());
     }
+
+    @Test
+    public void transaction_history_is_empty_on_creation() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        assertEquals(0, account.getTransactionHistory().size());
+    }
+
+    @Test
+    public void transaction_history_is_updated_on_deposit() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        account.deposit(100.0);
+        assertEquals(1, account.getTransactionHistory().size());
+        TransactionHistory transaction = account.getTransactionHistory().get(0);
+        assertEquals(Operation.DEPOSIT, transaction.operation());
+        assertEquals(100.0, transaction.amount(), 0.01);
+        assertEquals(100.0, transaction.balance(), 0.01);
+    }
+
+    @Test
+    public void transaction_history_is_updated_on_withdraw() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        account.deposit(200.0);
+        account.withdraw(100.0);
+        assertEquals(2, account.getTransactionHistory().size());
+        TransactionHistory transaction = account.getTransactionHistory().get(1);
+        assertEquals(Operation.WITHDRAW, transaction.operation());
+        assertEquals(100.0, transaction.amount(), 0.01);
+        assertEquals(100.0, transaction.balance(), 0.01);
+    }
+
+    @Test
+    public void client_can_get_all_transaction_history() {
+        Account account = new Account(ACCOUNT_NUMBER);
+        account.deposit(100.0);
+        account.withdraw(50.0);
+        assertEquals(2, account.getTransactionHistory().size());
+        assertEquals(Operation.DEPOSIT, account.getTransactionHistory().get(0).operation());
+        assertEquals(Operation.WITHDRAW, account.getTransactionHistory().get(1).operation());
+    }
 }
